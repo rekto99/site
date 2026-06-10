@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dia Mundial do Karate</title>
+    <style>
+        /* =========================================
+           SISTEMA VISUAL: KARATE THEME
+           ========================================= */
+        :root {
+            --primary-red: #B22222;      /* Vermelho Tradicional */
+            --dark-red: #8B0000;          /* Vermelho Escuro */
+            --deep-black: #1a1a1a;       /* Preto Profundo */
+            --pure-white: #ffffff;        /* Branco */
+            --gold-accent: #FFD700;       /* Ouro para Destaques */
+            --soft-grey: #f4f4f4;        /* Cinza Claro */
+            --text-main: #333333;
+            --text-light: #e0e0e0;
+
+            --h1-size: 42px;
+            --h2-size: 28px;
+            --body-size: 16px;
+            --footer-size: 13px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            font-size: var(--body-size);
+            color: var(--text-main);
+            background-color: var(--soft-grey);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* --- CABEÇALHO PARALLAX --- */
+        .banner {
+            position: relative;
+            height: 75vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .banner-bg {
+            position: absolute;
+            inset: -100px;
+            background-image: url('https://images.unsplash.com/photo-1555597577-cC389B937a7a?q=80&w=2070&auto=format&fit=crop'); /* Imagem de Karate profissional */
+            background-size: cover;
+            background-position: center;
+            transform: translateY(0);
+            will-change: transform;
+        }
+
+        .banner::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(139,0,0,0.6));
+            z-index: 1;
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--pure-white);
+            padding: 20px;
+        }
+
+        .banner h1 {
+            font-size: clamp(40px, 6vw, 70px);
+            margin: 0;
+            text-shadow: 3px 3px 15px rgba(0,0,0,0.8);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .banner p {
+            margin-top: 15px;
+            font-size: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        /* --- NAVEGAÇÃO --- */
+        nav {
+            background-color: var(--deep-black);
+            text-align: center;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid var(--primary-red);
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: var(--body-size);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        nav a:hover {
+            color: var(--gold-accent);
+            text-shadow: 0 0 5px var(--gold-accent);
+        }
+
+        /* --- CONTEÚDO PRINCIPAL --- */
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 40px;
+            background: var(--pure-white);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-top: 8px solid var(--primary-red);
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: var(--h2-size);
+            color: var(--dark-red);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 700;
+            border-bottom: 2px solid var(--gold-accent);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        p {
+            color: var(--text-main);
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .highlight {
+            color: var(--primary-red);
+            font-weight: bold;
+        }
+
+        /* --- CARDS DE INFORMAÇÃO --- */
+        .karate-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .karate-card {
+            background: var(--soft-grey);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid var(--primary-red);
+            transition: transform 0.3s ease;
+        }
+
+        .karate-card:hover {
+            transform: scale(1.02);
+            background: #eee;
+        }
+
+        .karate-card h3 {
+            color: var(--dark-red);
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border: 4px solid white;
+        }
+
+        .image-caption {
+            font-size: var(--footer-size);
+            color: #666;
+            margin-top: 10px;
+            display: block;
+            font-style: italic;
+        }
+
+        /* --- RODAPÉ CUSTOMIZADO --- */
+        footer {
+            font-size: var(--footer-size);
+            text-align: center;
+            background: linear-gradient(135deg, var(--deep-black) 0%, var(--dark-red) 100%);
+            color: var(--text-light);
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        footer p {
+            text-align: center;
+            margin: 5px 0;
+            color: var(--text-light);
+        }
+
+        footer b {
+            color: var(--gold-accent);
+        }
+
+        footer hr {
+            border: 0;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin: 20px auto;
+            width: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .banner { height: 60vh; }
+            .banner h1 { font-size: 32px; }
+            .container { margin: 20px; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="banner">
+        <div class="banner-bg"></div>
+        <div class="banner-content">
+            <h1 style="cursor: pointer;" onclick="showPage('inicio')">Dia Mundial do Karate</h1>
+            <p>Disciplina • Honra • Respeito • Superação</p>
+        </div>
+    </header>
+
+    <script>
+        const bannerBg = document.querySelector('.banner-bg');
+        window.addEventListener('scroll', () => {
+            const scroll = window.pageYOffset;
+            bannerBg.style.transform = `translateY(${scroll * 0.4}px)`;
+        });
+    </script>
+
+    <!-- NAVEGAÇÃO -->
+    <nav>
+        <a onclick="showPage('inicio')">Início</a>
+        <a onclick="showPage('historia')">História</a>
+        <a onclick="showPage('valores')">Valores</a>
+    </nav>
+
+    <!-- CONTEÚDO -->
+    <main class="container">
+
+        <!-- PÁGINA 1: Início -->
+        <section id="inicio" class="page active">
+            <h2>Bem-vindo ao Caminho das Mãos Vazias</h2>
+            <p>O <span class="highlight">Dia Mundial do Karate</span> é uma celebração global de uma das artes marciais mais respeitadas do mundo. Muito além do combate, o Karate-Do é um estilo de vida dedicado ao autoconhecimento, à disciplina e à paz interior.</p>
+
+            <div class="karate-grid">
+                <div class="karate-card">
+                    <h3>📅 25 de Outubro</h3>
+                    <p><b>World Karate Day:</b> A data mais tradicional. Celebra a assembleia de 1936 em Okinawa, onde o termo "Karate" foi formalizado.</p>
+                </div>
+                <div class="karate-card">
+                    <h3>🇧🇷 17 de Junho</h3>
+                    <p><b>Dia do Karate no Brasil:</b> Homenageia a chegada dos mestres pioneiros e a aceitação do esporte pelo Comitê Olímpico.</p>
+                </div>
+                <div class="karate-card">
+                    <h3>🏅 Estreia Olímpica</h3>
+                    <p>O Karate brilhou nos Jogos de Tóquio 2020, realizando seu retorno triunfal às raízes no lendário Nippon Budokan.</p>
+                </div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://th.bing.com/th/id/R.2ff1fcb290c8d36352aa2ddedbb8e07e?rik=1eLZekX5aGEx%2bA&riu=http%3a%2f%2fimages6.fanpop.com%2fimage%2fphotos%2f43100000%2fKarate-kid-1984-the-karate-kid-43180084-1920-1040.jpg&ehk=qplFe3yJlrG%2biwQsddH2Ps6SpgnWTQzsYB7HaYG%2bwbw%3d&risl=&pid=ImgRaw&r=0" alt="Karate Kid">
+                <span class="image-caption">O impacto do Karate na cultura pop mundial.</span>
+            </div>
+        </section>
+
+        <!-- PÁGINA 2: História -->
+        <section id="historia" class="page">
+            <h2>As Raízes e a Evolução</h2>
+            <p>O Karate nasceu na ilha de <span class="highlight">Okinawa</span>, fundindo técnicas locais de autodefesa com artes marciais chinesas. Originalmente chamado de "Te", era praticado em segredo para proteger a população.</p>
+
+            <div class="karate-card" style="background: white; border: 1px solid #ddd;">
+                <h3>Mestre Gichin Funakoshi</h3>
+                <p>Considerado o pai do Karate moderno, Funakoshi levou a arte para o Japão continental em 1922. Ele transformou a técnica de luta em um "Caminho" (Do), focando no aperfeiçoamento do caráter.</p>
+            </div>
+
+            <div class="image-container">
+                <img src="https://cdn.shopify.com/s/files/1/0646/4097/files/Biografia_de_Gichin_Funakoshi._Fundador_del_estilo_de_Karate_Shotokan_2_1024x1024.jpg?v=1555064636" alt="Mestre Funakoshi">
+                <span class="image-caption">Gichin Funakoshi, a ponte entre Okinawa e o mundo.</span>
+            </div>
+        </section>
+
+        <!-- PÁGINA 3: Valores -->
+        <section id="valores" class="page">
+            <h2>Filosofia e o Dojo Kun</h2>
+            <p>No Karate, a vitória mais importante é a vitória sobre si mesmo. O código moral, conhecido como <span class="highlight">Dojo Kun</span>, orienta cada praticante a:</p>
+
+            <div class="karate-grid">
+                <div class="karate-card">
+                    <h3>🤝 Respeito</h3>
+                    <p>A base de tudo. Respeito ao mestre, ao colega e ao adversário, simbolizado pelo cumprimento (Rei).</p>
+                </div>
+                <div class="karate-card">
+                    <h3>🧘 Disciplina</h3>
+                    <p>O esforço constante e a repetição que transformam o corpo e a mente.</p>
+                </div>
+                <div class="karate-card">
+                    <h3>🛡️ Não Agressão</h3>
+                    <p><em>"No karate não existe primeiro ataque"</em>. A arte é para defesa e proteção, nunca para a violência.</p>
+                </div>
+            </div>
+
+            <div class="image-container">
+                <img src="https://saomiguel.pr.gov.br/wp-content/uploads/2025/08/KARATE-OURO-JAPAO-1-scaled.jpg" alt="Isabel Cardoso">
+                <span class="image-caption">A excelência brasileira no topo do mundo.</span>
+            </div>
+        </section>
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p><b>FEITO POR:</b> João Pedro Carneiro Ibiapino</p>
+        <p><b>MATRÍCULA:</b> UC:25200195</p>
+        <p><b>INSTITUIÇÃO:</b> Universidade Católica de Brasília (UCB)</p>
+        <hr>
+        <p>&copy; 2026 Celebração do Dia do Karate.</p>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
